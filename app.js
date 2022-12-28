@@ -8,6 +8,8 @@ app.use(cors())
 
 const port = process.env.PORT || 3002
 
+app.use("/api", require("./routes/products"))
+
 app.listen(port, () => {
   console.log(`Escuchando en http://localhost:${port}`);
 })
