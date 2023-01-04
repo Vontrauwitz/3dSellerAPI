@@ -17,9 +17,6 @@ const ProductsScheme = new mongoose.Schema(
     stock: {
       type: Number,
     },
-    image: {
-      type: String,
-    },
     category: {
       type: ["none", "figure", "mate cup", "world cup", "clothes", "mobile", "anime", "other"],
       default: 'other'
