@@ -28,7 +28,17 @@ const getProducts = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const getProduct = (req, res) => { }
+const getProduct = async (req, res) => {
+  try {
+    req = matchedData(req);
+    const { id } = req;
+    const data = await ProductsModel.findById(id);
+    res.send({ data });
+  } catch (error) {
+    handleHttpError(res, "ERROR_GET_PRODUICT")
+
+  }
+}
 
 
 /**
@@ -45,8 +55,6 @@ const createProduct = async (req, res) => {
   } catch (error) {
     // console.log(error);
     handleHttpError(res, "ERROR_POST_PRODUCT");
-
-
   }
 }
 
@@ -56,7 +64,18 @@ const createProduct = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const updateProduct = (req, res) => { }
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { ...body } = matchedData(req)
+    // console.log("🚀 ~ file: products.js:30 ~ createProduct ~ body", body)
+    const data = await ProductsModel.findOneAndUpdate(id, body)
+    res.send({ data })
+  } catch (error) {
+    // console.log(error);
+    handleHttpError(res, "ERROR_POST_PRODUCT");
+  }
+}
 
 
 /**
@@ -64,8 +83,19 @@ const updateProduct = (req, res) => { }
  * @param {*} req
  * @param {*} res
  */
-const deleteProduct = (req, res) => { }
-
+const deleteProduct = async (req, res) => {
+  try {
+    req = matchedData(req)
+    const { id } = req //! aqui llega
+    console.log(id)
+    const data = await ProductsModel.deleteOne({ _id: id })
+    res.send({ data })
+    console.log("🚀 ~ file: products.js:93 ~ deleteProduct ~ data", data)
+  } catch (error) {
+    console.log(error);
+    handleHttpError(res, "ERROR_DELETE_PRODUCT")
+  }
+}
 
 
 
