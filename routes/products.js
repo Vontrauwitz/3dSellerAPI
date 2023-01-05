@@ -1,18 +1,18 @@
 const express = require('express');
 const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/products');
-const { validatorCreateProduct } = require('../validators/product');
+const { validatorCreateProduct, validatorIdProduct, validatorUpdateProduct } = require('../validators/product');
 
 const router = express.Router();
 
 router.get("/", getProducts)
 
-router.get("/", getProduct)
+router.get("/:id", validatorIdProduct, getProduct)
 
 router.post("/", validatorCreateProduct, createProduct)
 
-router.put("/", updateProduct)
+router.put("/:id", validatorUpdateProduct, updateProduct)
 
-router.delete("/", deleteProduct)
+router.delete("/:id", validatorIdProduct, deleteProduct)
 
 
 //bla bla bla
